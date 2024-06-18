@@ -30,8 +30,3 @@ def product_pizza():
     return pizza_detail
 
 
-def checkout(total_price, product_list, token_payment):
-    try:
-        return "Payment Success"
-    except:
-        return False
