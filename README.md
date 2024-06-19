@@ -2,9 +2,9 @@
 conversational agent with llm gpt-4o
 
 - things to build for example are:
-    - example use azure openai with python
-    - example use history as previous knowledge and context
-    - example use case for function call(ongoing)
+    - example use azure openai with python (done)
+    - example use history as previous knowledge and context (done)
+    - example use case for function call with gpt-4o model(done)
     - use RAG (retreival augmented generation) as added knowledge for product(todo)
     - to be continue..
 

@@ -55,10 +55,10 @@ tools = [
                     },
                     "email": {
                         "type": "string",
-                        "description": "token number of payment from customer, to be check by system true money",
+                        "description": "email customer so report will be send here",
                     }
                 },
-                "required": ["total_price", "product_list", "token_payment"],
+                "required": ["total_price", "product_list", "email"],
             }
         }
     }
@@ -71,6 +71,7 @@ def get_user_input():
     return input("User: ")
 
 def get_response_from_openai(messages, available_functions):
+    print(messages)
     response = client.chat.completions.create(
         model=deployment,
         messages=messages,
@@ -81,6 +82,8 @@ def get_response_from_openai(messages, available_functions):
     response_tool_calls = response_message.tool_calls
     if response_tool_calls == None:
         return response_message.content
+    print("appending messages")
+    messages.append(response_message)
     for tool_call in response_tool_calls:
         # Step 3: call the function
         # Note: the JSON response may not always be valid; be sure to handle errors
@@ -92,10 +95,6 @@ def get_response_from_openai(messages, available_functions):
         
         function_args = json.loads(tool_call.function.arguments)
         function_response = function_to_call(**function_args)
-        messages.append({
-            "role": "assistant",
-            "content": f"Function {function_name} was called with arguments {json.dumps(function_args)} and returned {json.dumps(function_response)}"
-        })
         # verify function has correct number of arguments
         print("Output of function call:")
         print(function_response)
@@ -112,7 +111,7 @@ def get_response_from_openai(messages, available_functions):
             model=deployment,
             messages=messages,
         )  # get a new response from the model where it can see the function response
-        return second_response
+        return second_response.choices[0].message.content
     return 
 
 # Main loop
