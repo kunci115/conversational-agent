@@ -15,3 +15,6 @@ conversational agent with llm gpt-4o
 AZURE_OPENAI_ENDPOINT=YOUR API OPENAI ENDPOINT
 CHAT_COMPLETIONS_DEPLOYMENT_NAME=Your Model Name(i'm using gpt-4o)
 PROMPT_FILE_NAME=prompt_pizza_hut_id.txt
+
+2. pip install -r requirements.txt
+3. run python main.py
